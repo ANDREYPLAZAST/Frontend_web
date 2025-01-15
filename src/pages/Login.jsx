@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/api';
+import { loginUser, verifyOTP } from '../services/api';
 // Importaciones de MUI
 import { 
   Google as GoogleIcon,
@@ -17,6 +17,8 @@ import "../css/Login.css";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [showOtpInput, setShowOtpInput] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -55,11 +57,29 @@ const LoginPage = () => {
 
     try {
       const response = await loginUser(email, password);
+      if (response.requiresOTP) {
+        setShowOtpInput(true);
+        setError("Se ha enviado un código a tu correo");
+      }
+    } catch (err) {
+      setError(err.message || 'Error al iniciar sesión');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyOTP = async (e) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const response = await verifyOTP(email, otpCode);
       if (response.token) {
         navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.message || 'Error al iniciar sesión');
+      setError(err.message || 'Error al verificar el código');
     } finally {
       setIsLoading(false);
     }
@@ -75,34 +95,50 @@ const LoginPage = () => {
           <h2 className="welcome-text">Bienvenido de nuevo</h2>
           <p className="instruction-text">Ingresa tus credenciales para gestionar tus fondos</p>
           
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="Johndoe@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+          <form onSubmit={showOtpInput ? handleVerifyOTP : handleSubmit}>
+            {!showOtpInput ? (
+              <>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    placeholder="andrey_lindo@gmail.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
 
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <a href="#" className="forgot-password">Forgot Password</a>
-            </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <a href="#" className="forgot-password">Forgot Password</a>
+                </div>
+              </>
+            ) : (
+              <div className="form-group">
+                <label>Código de verificación</label>
+                <input
+                  type="text"
+                  placeholder="Ingresa el código de 6 dígitos"
+                  value={otpCode}
+                  onChange={(e) => setOtpCode(e.target.value)}
+                  maxLength={6}
+                />
+                <p className="help-text">Revisa tu correo electrónico</p>
+              </div>
+            )}
 
             <button 
               type="submit" 
               className="sign-in-btn"
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : "Sign in"}
+              {isLoading ? "Loading..." : (showOtpInput ? "Verificar" : "Sign in")}
             </button>
 
             {error && <p className="error-message">{error}</p>}
