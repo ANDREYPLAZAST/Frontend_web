@@ -1,42 +1,166 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* General Styles */
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  font-family: "Arial", sans-serif;
+}
+
+/* Left Section */
+.left-section {
+  background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px 0 0 20px;
+}
+
+.brand-title {
+  color: #10b981;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.welcome-title {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.instruction-text {
+  color: #bbbbbb;
+  margin-bottom: 2rem;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.input-field {
+  background: white;
+  border-radius: 0.5rem;
+}
+
+.forgot-password {
+  text-align: right;
+}
+
+.link {
+  color: white;
+  text-decoration: underline;
+  font-size: 0.875rem;
+}
+
+.signin-button {
+  background: #10b981;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  text-transform: none;
+}
+
+.signin-button:hover {
+  background: #059669;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.icon-button {
+  background: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+.create-account {
   text-align: center;
+  margin-top: 1rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Right Section */
+.right-section {
+  background: #10b981;
+  color: white;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 20px 20px 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.testimonial-container {
+  max-width: 40rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.testimonial-title {
+  font-weight: bold;
+  margin-bottom: 2rem;
 }
 
-.card {
-  padding: 2em;
+.testimonial-text {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.testimonial-author {
+  font-weight: bold;
+}
+
+.testimonial-role {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.testimonial-navigation {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-button {
+  background: black;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.promo-box {
+  background: white;
+  color: black;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.promo-title {
+  font-weight: bold;
+}
+
+.promo-text {
+  color: gray;
+  margin-top: 0.5rem;
 }
