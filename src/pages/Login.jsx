@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser, verifyOTP } from '../services/api';
 // Importaciones de MUI
 import { 
@@ -156,7 +156,16 @@ const LoginPage = () => {
             </div>
 
             <div className="create-account">
-              <a href="#">Create an account</a>
+              <a 
+                href="#" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/register');
+                }}
+                className="create-account-link"
+              >
+                Create an account
+              </a>
             </div>
           </form>
         </div>
