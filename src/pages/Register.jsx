@@ -65,7 +65,7 @@ const Register = () => {
     try {
       const response = await registerUser(formData);
       console.log('Usuario registrado:', response);
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Error en el registro');
     } finally {

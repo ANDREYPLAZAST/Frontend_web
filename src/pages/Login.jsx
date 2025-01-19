@@ -60,6 +60,8 @@ const LoginPage = () => {
       if (response.requiresOTP) {
         setShowOtpInput(true);
         setError("Se ha enviado un código a tu correo");
+      } else {
+        navigate('/dashboard');
       }
     } catch (err) {
       setError(err.message || 'Error al iniciar sesión');
@@ -105,6 +107,7 @@ const LoginPage = () => {
                     placeholder="andrey_lindo@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -115,8 +118,9 @@ const LoginPage = () => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
-                  <a href="#" className="forgot-password">Forgot Password</a>
+                  <Link to="/forgot-password" className="forgot-password">Olvidé mi contraseña</Link>
                 </div>
               </>
             ) : (
@@ -138,7 +142,7 @@ const LoginPage = () => {
               className="sign-in-btn"
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : (showOtpInput ? "Verificar" : "Sign in")}
+              {isLoading ? "Loading..." : (showOtpInput ? "Verificar" : "Iniciar sesión")}
             </button>
 
             {error && <p className="error-message">{error}</p>}
