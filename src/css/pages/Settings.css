@@ -1,0 +1,15 @@
+.page-title {
+  margin-bottom: 2rem !important;
+  color: #333;
+}
+
+.settings-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (max-width: 960px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+} 

@@ -1,0 +1,51 @@
+.statistics-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.statistics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  height: 200px;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.placeholder-chart {
+  height: 100%;
+  position: relative;
+  background: linear-gradient(180deg, rgba(43, 108, 176, 0.1) 0%, transparent 100%);
+  border-radius: 10px;
+}
+
+.chart-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2b6cb0;
+}
+
+.chart-amount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2b6cb0;
+}
+
+.chart-dates {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+} 

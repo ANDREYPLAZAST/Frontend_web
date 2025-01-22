@@ -1,0 +1,46 @@
+.learning-path-card {
+  padding: 1.5rem;
+  height: fit-content;
+}
+
+.progress-section {
+  text-align: center;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: #f8f9fd;
+  border-radius: 8px;
+}
+
+.learning-stepper {
+  margin-top: 1.5rem;
+}
+
+.continue-button {
+  margin-top: 1rem !important;
+  text-transform: none !important;
+}
+
+/* Personalización del Stepper */
+.MuiStepLabel-label {
+  font-weight: 500 !important;
+}
+
+.MuiStepContent-root {
+  border-left: 1px solid rgba(0, 0, 0, 0.1) !important;
+  margin-left: 12px !important;
+  padding-left: 20px !important;
+}
+
+.MuiStepIcon-root.Mui-completed {
+  color: #4CAF50 !important;
+}
+
+.MuiStepIcon-root.Mui-active {
+  color: #2196F3 !important;
+}
+
+@media (max-width: 600px) {
+  .learning-path-card {
+    margin-top: 1rem;
+  }
+} 

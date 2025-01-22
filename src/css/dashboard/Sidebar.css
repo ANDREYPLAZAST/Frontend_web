@@ -1,0 +1,122 @@
+.sidebar {
+  width: 240px;
+  height: calc(100vh - 2rem);
+  background: #4CAF50;
+  padding: 2rem;
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.brand-name {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.5rem !important;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255,255,255,0.2) !important;
+}
+
+.profile-details {
+  text-align: center;
+}
+
+.profile-name {
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.profile-email {
+  font-size: 0.9rem !important;
+  opacity: 0.8;
+}
+
+.menu-label {
+  opacity: 0.7;
+  margin-bottom: 1rem;
+  font-size: 0.9rem !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.menu-list {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.menu-item {
+  border-radius: 12px !important;
+  margin-bottom: 0.5rem !important;
+  padding: 0.75rem 1rem !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.menu-item.active {
+  background-color: rgba(255,255,255,0.2) !important;
+}
+
+.menu-icon {
+  color: white !important;
+  min-width: 40px !important;
+  opacity: 0.9;
+}
+
+.menu-text .MuiListItemText-primary {
+  font-weight: 500;
+}
+
+.menu-text .MuiListItemText-secondary {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+}
+
+.bottom-menu {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Tooltip personalizado */
+.MuiTooltip-tooltip {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  padding: 8px 12px !important;
+  font-size: 0.8rem !important;
+}
+
+.settings-item {
+  margin-top: auto !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  cursor: pointer;
+}
+
+.settings-item:hover {
+  background-color: rgba(255,255,255,0.1);
+} 

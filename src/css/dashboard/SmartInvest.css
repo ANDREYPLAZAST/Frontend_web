@@ -1,0 +1,60 @@
+.smart-invest-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.smart-invest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.investment-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.filter-chip {
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.filter-chip.active {
+  background-color: #2b6cb0 !important;
+  color: white !important;
+}
+
+.investments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.investment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #f8f9fa;
+}
+
+.investment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.price-change.positive {
+  color: #38a169;
+}
+
+.price-change.negative {
+  color: #e53e3e;
+} 

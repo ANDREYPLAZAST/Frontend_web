@@ -1,13 +1,18 @@
 // src/main.jsx
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import App from './App';
 import './index.css';
-import App from './App.jsx';
-import { BrowserRouter } from 'react-router-dom'; // Aquí agregamos el Router
 
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <BrowserRouter>  {/* Aquí envolvemos toda la app en el Router */}
-    <App />
-  </BrowserRouter>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+      </LocalizationProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

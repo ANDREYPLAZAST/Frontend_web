@@ -1,0 +1,25 @@
+.amount-positive {
+  color: #4CAF50 !important;
+  font-weight: 500;
+}
+
+.amount-negative {
+  color: #f44336 !important;
+  font-weight: 500;
+}
+
+.status-chip {
+  border-radius: 20px !important;
+  font-size: 0.75rem !important;
+  height: 24px !important;
+}
+
+.status-chip.completed {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+  color: #4CAF50 !important;
+}
+
+.status-chip.pending {
+  background-color: rgba(255, 152, 0, 0.1) !important;
+  color: #ff9800 !important;
+} 

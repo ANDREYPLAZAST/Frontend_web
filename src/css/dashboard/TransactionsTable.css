@@ -1,0 +1,48 @@
+.transactions-container {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.transaction-row {
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.transaction-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transaction-icon {
+  background-color: #f0f0f0 !important;
+  color: #666 !important;
+  
+  &.receive {
+    background-color: #e8f5e9 !important;
+    color: #2e7d32 !important;
+  }
+  
+  &.send {
+    background-color: #fbe9e7 !important;
+    color: #d32f2f !important;
+  }
+}
+
+.amount-positive {
+  color: #2e7d32 !important;
+}
+
+.amount-negative {
+  color: #d32f2f !important;
+} 

@@ -1,0 +1,49 @@
+.transactions-card {
+  background: white !important;
+  border-radius: 20px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  margin-top: 1.5rem;
+}
+
+.transactions-header {
+  margin-bottom: 1.5rem;
+}
+
+.transactions-header h6 {
+  color: #333;
+}
+
+.MuiTableCell-head {
+  font-weight: 600 !important;
+  color: #666 !important;
+  background-color: #f8f9fd !important;
+}
+
+.amount-positive {
+  color: #4CAF50 !important;
+}
+
+.amount-negative {
+  color: #f44336 !important;
+}
+
+.status-chip {
+  border-radius: 20px !important;
+  font-size: 0.75rem !important;
+  height: 24px !important;
+}
+
+.status-chip.completed {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+  color: #4CAF50 !important;
+}
+
+.status-chip.pending {
+  background-color: rgba(255, 152, 0, 0.1) !important;
+  color: #ff9800 !important;
+}
+
+.MuiTableRow-root:hover {
+  background-color: #f8f9fd;
+} 

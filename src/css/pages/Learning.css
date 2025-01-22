@@ -1,0 +1,20 @@
+.page-title {
+  margin-bottom: 2rem !important;
+  color: #333;
+}
+
+.courses-section {
+  padding: 1.5rem;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+.learning-path {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  height: fit-content;
+  position: sticky;
+  top: 1.5rem;
+} 

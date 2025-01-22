@@ -1,0 +1,30 @@
+.portfolio-stats {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.stats-header {
+  margin-bottom: 1.5rem;
+}
+
+.stats-chart {
+  height: 250px;
+  position: relative;
+}
+
+.chart-placeholder {
+  height: 200px;
+  background: linear-gradient(180deg, rgba(76,175,80,0.1) 0%, rgba(76,175,80,0) 100%);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  color: #666;
+} 

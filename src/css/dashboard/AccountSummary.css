@@ -1,0 +1,56 @@
+.account-summary {
+  background: white !important;
+  border-radius: 20px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.summary-header .MuiSvgIcon-root {
+  color: #4CAF50;
+}
+
+.savings-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress-bar {
+  height: 8px !important;
+  border-radius: 4px !important;
+  background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+.progress-bar .MuiLinearProgress-bar {
+  background-color: #4CAF50 !important;
+}
+
+.action-button {
+  color: #4CAF50 !important;
+  border-color: #4CAF50 !important;
+  text-transform: none !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.action-button:hover {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+} 

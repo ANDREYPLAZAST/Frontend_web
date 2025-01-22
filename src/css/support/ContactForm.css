@@ -1,0 +1,15 @@
+.contact-form-card {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.submit-button {
+  margin-top: 1.5rem !important;
+  text-transform: none !important;
+} 

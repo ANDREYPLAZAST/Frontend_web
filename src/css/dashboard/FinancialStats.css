@@ -1,0 +1,60 @@
+.stats-card {
+  background: white !important;
+  border-radius: 20px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  margin-bottom: 1.5rem;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.stats-tabs {
+  min-height: 36px !important;
+}
+
+.stats-tabs .MuiTab-root {
+  text-transform: none !important;
+  min-height: 36px !important;
+  padding: 6px 16px !important;
+}
+
+.stats-content {
+  padding: 1rem 0;
+}
+
+.chart-placeholder {
+  height: 200px;
+  background: linear-gradient(180deg, rgba(76,175,80,0.1) 0%, rgba(76,175,80,0) 100%);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item .MuiTypography-body2 {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.positive {
+  color: #4CAF50 !important;
+}
+
+.negative {
+  color: #f44336 !important;
+} 

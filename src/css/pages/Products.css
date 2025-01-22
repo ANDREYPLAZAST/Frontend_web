@@ -1,0 +1,24 @@
+.page-title {
+  margin-bottom: 1.5rem !important;
+  color: #333;
+}
+
+.products-tabs {
+  margin-bottom: 2rem;
+}
+
+.product-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.simulator-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  height: fit-content;
+  position: sticky;
+  top: 1.5rem;
+} 

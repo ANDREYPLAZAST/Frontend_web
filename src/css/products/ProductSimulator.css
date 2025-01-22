@@ -1,0 +1,46 @@
+.simulator-card {
+  padding: 1.5rem;
+  height: fit-content;
+}
+
+.simulator-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.amount-field, .term-field {
+  margin-bottom: 1rem;
+}
+
+.simulation-result {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #f8f9fd;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.apply-button {
+  margin-top: 1rem !important;
+  text-transform: none !important;
+}
+
+.MuiSlider-root {
+  color: #4CAF50 !important;
+}
+
+.MuiSlider-thumb {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.MuiSlider-valueLabel {
+  background-color: #4CAF50 !important;
+}
+
+@media (max-width: 600px) {
+  .simulator-card {
+    margin-top: 1rem;
+  }
+} 

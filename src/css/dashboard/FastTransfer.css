@@ -1,0 +1,55 @@
+.fast-transfer-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.fast-transfer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.contacts-list {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.contact-avatar {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.contact-avatar:hover {
+  transform: scale(1.1);
+}
+
+.transfer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.transfer-button {
+  background-color: #2b6cb0 !important;
+  color: white !important;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  text-transform: none !important;
+} 

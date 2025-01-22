@@ -1,0 +1,60 @@
+.main-wallet-card {
+  background: white !important;
+  border-radius: 20px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  height: fit-content;
+}
+
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-balance {
+  margin-bottom: 2rem;
+}
+
+.wallet-balance h3 {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  color: #333;
+}
+
+.income-text {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.wallet-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fd;
+  border-radius: 12px;
+}
+
+.category-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.category-details {
+  flex: 1;
+} 
