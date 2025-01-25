@@ -5,16 +5,11 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f8f9fd;
-  overflow: hidden; /* Prevenir scroll en el body */
-}
-
 /* Layout principal */
 .dashboard-layout {
   display: flex;
   height: 100vh;
-  background-color: #f8f9fd;
+  background-color: white;  /* Cambiado a blanco */
   padding: 1rem;
 }
 
@@ -112,4 +107,24 @@ body {
   .main-content {
     left: 1rem;
   }
+}
+
+/* Estilos para las tarjetas/secciones */
+.MuiCard-root, 
+.card-section,
+.statistics-section,
+.transactions-section {
+  background: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Para cualquier contenedor con fondo negro */
+.card-container,
+.statistics-container,
+.transactions-container {
+  background: white !important;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
 } 

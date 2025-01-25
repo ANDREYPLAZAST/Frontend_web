@@ -1,5 +1,6 @@
 // src/pages/Dashboard.jsx
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { Box, Container, Grid, InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Sidebar from '../components/dashboard/Sidebar';
@@ -8,8 +9,19 @@ import TransactionHistory from '../components/dashboard/TransactionHistory';
 import FinancialStats from '../components/dashboard/FinancialStats';
 import QuickActions from '../components/dashboard/QuickActions';
 import "../css/Dashboard.css";
+import "../css/dashboard/DashboardLayout.css";
 
 const Dashboard = () => {
+  React.useEffect(() => {
+    // Agregar clase al body cuando el componente se monta
+    document.body.classList.add('dashboard-page');
+    
+    // Limpiar cuando el componente se desmonta
+    return () => {
+      document.body.classList.remove('dashboard-page');
+    };
+  }, []);
+
   return (
     <Box className="dashboard-layout">
       <Sidebar />
@@ -60,6 +72,8 @@ const Dashboard = () => {
               <QuickActions />
             </Box>
           </Box>
+
+          <Outlet /> {/* Aquí se renderizarán las subrutas */}
         </Container>
       </Box>
     </Box>

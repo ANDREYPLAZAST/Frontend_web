@@ -1,0 +1,19 @@
+/* Estilos específicos para el layout del dashboard */
+.dashboard-layout {
+  background-color: white !important;
+}
+
+.main-content {
+  background-color: white !important;
+}
+
+/* Estilos para las tarjetas del dashboard */
+.MuiPaper-root,
+.MuiCard-root,
+.statistics-card,
+.transactions-card,
+.quick-actions-card {
+  background-color: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+} 

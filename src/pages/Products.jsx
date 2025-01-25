@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Container, Typography, Grid, Tab, Tabs } from '@mui/material';
+import { Box, Container, Typography, Grid, Tab, Tabs, Button } from '@mui/material';
 import Sidebar from '../components/dashboard/Sidebar';
 import ProductCard from '../components/products/ProductCard';
 import ProductSimulator from '../components/products/ProductSimulator';
@@ -35,6 +35,10 @@ const Products = () => {
     }
   ];
 
+  const handleSolicitar = () => {
+    // Implement the logic to handle soliciting a product
+  };
+
   return (
     <Box className="dashboard-layout">
       <Sidebar />
@@ -67,6 +71,19 @@ const Products = () => {
 
             <Grid item xs={12} md={4}>
               <ProductSimulator />
+              <Button 
+                variant="contained" 
+                fullWidth 
+                onClick={handleSolicitar}
+                sx={{
+                  backgroundColor: '#4CAF50',
+                  '&:hover': {
+                    backgroundColor: '#45a049',
+                  }
+                }}
+              >
+                Solicitar
+              </Button>
             </Grid>
           </Grid>
         </Container>

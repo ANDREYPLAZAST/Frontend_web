@@ -1,0 +1,62 @@
+/* Cambiar los botones azules a verde */
+.MuiButton-contained,
+.MuiButton-root,
+button[class*="MuiButton-containedPrimary"] {
+  background-color: #4CAF50 !important;
+}
+
+.MuiButton-contained:hover,
+.MuiButton-root:hover,
+button[class*="MuiButton-containedPrimary"]:hover {
+  background-color: #45a049 !important;
+}
+
+/* Cambiar los tabs/pestañas azules a verde */
+.MuiTab-root.Mui-selected {
+  color: #4CAF50 !important;
+}
+
+.MuiTabs-indicator {
+  background-color: #4CAF50 !important;
+}
+
+/* Cambiar los links azules a verde */
+a {
+  color: #4CAF50;
+}
+
+a:hover {
+  color: #45a049;
+}
+
+/* Cambiar el color de los elementos seleccionados/activos */
+.active-tab,
+.selected-item {
+  color: #4CAF50 !important;
+  border-color: #4CAF50 !important;
+}
+
+/* Cambiar el color de los sliders y elementos interactivos */
+.MuiSlider-root {
+  color: #4CAF50 !important;
+}
+
+/* Cambiar el color de los switches */
+.MuiSwitch-colorPrimary.Mui-checked {
+  color: #4CAF50 !important;
+}
+
+.MuiSwitch-track.Mui-checked {
+  background-color: #4CAF50 !important;
+}
+
+/* Cambiar el color de los elementos de progreso */
+.MuiLinearProgress-barColorPrimary {
+  background-color: #4CAF50 !important;
+}
+
+/* Cambiar el color de los textos destacados */
+.highlight-text,
+.primary-text {
+  color: #4CAF50 !important;
+} 

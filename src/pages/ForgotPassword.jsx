@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { forgotPassword, verifyCode, resetPassword } from '../services/api';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import "../css/ForgotPassword.css";
+
 
 const ForgotPassword = () => {
   const [step, setStep] = useState(1); // Paso actual
@@ -20,9 +22,9 @@ const ForgotPassword = () => {
     setSuccess('');
     
     try {
-      await forgotPassword(emailOrDoc); // Solicita el envío del código
-      setSuccess('Código enviado exitosamente. Verifica tu correo.');
-      setStep(2); // Cambia al paso 2 de verificación
+      await forgotPassword(emailOrDoc);
+      setSuccess('Se ha enviado un código a tu correo');
+      setStep(2);
     } catch (err) {
       setError(err.message || 'Error al enviar el código');
     }
@@ -73,36 +75,48 @@ const ForgotPassword = () => {
 
   return (
     <div className="forgot-password-container">
-      <h2>Restablecer Contraseña</h2>
-      <form onSubmit={step === 1 ? handleSendCode : step === 2 ? handleVerifyCode : handleResetPassword}>
+      <form className="forgot-password-form">
+        <h2 className="forgot-password-title">Restablecer Contraseña</h2>
+        
         {step === 1 && (
-          <div className="form-fields">
+          <>
             <input
               type="text"
+              className="input-field"
               placeholder="Correo o Número de Documento"
               value={emailOrDoc}
               onChange={(e) => setEmailOrDoc(e.target.value)}
               required
             />
-            <button type="button" onClick={handleSendCode}>Enviar Código</button>
-          </div>
+            
+            <button type="button" className="send-code-btn" onClick={handleSendCode}>
+              Enviar Código
+            </button>
+          </>
         )}
+
         {step === 2 && (
-          <div className="form-fields">
+          <>
             <input
               type="text"
-              placeholder="Código de Verificación"
+              className="input-field"
+              placeholder="Ingresa el código de verificación"
               value={code}
               onChange={(e) => setCode(e.target.value)}
               required
             />
-            <button type="submit">Verificar Código</button>
-          </div>
+            
+            <button type="button" className="send-code-btn" onClick={handleVerifyCode}>
+              Verificar Código
+            </button>
+          </>
         )}
+        
         {step === 3 && (
-          <div className="form-fields">
+          <>
             <input
               type="password"
+              className="input-field"
               placeholder="Nueva Contraseña"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -110,15 +124,23 @@ const ForgotPassword = () => {
             />
             <input
               type="password"
+              className="input-field"
               placeholder="Confirmar Contraseña"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <button type="submit">Restablecer Contraseña</button>
-          </div>
+            <button type="button" className="send-code-btn" onClick={handleResetPassword}>
+              Restablecer Contraseña
+            </button>
+          </>
         )}
+        
+        <Link to="/" className="back-to-login">
+          <ArrowBackIcon /> Volver al inicio de sesión
+        </Link>
       </form>
+      
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
     </div>

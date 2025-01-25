@@ -20,7 +20,7 @@ const Sidebar = () => {
     { 
       icon: <DashboardIcon />, 
       label: 'Dashboard', 
-      path: '/dashboard',
+      path: '/dashboard/home',
       description: 'Resumen general de tu cuenta'
     },
     { 

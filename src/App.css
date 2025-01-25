@@ -1,23 +1,44 @@
 /* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
 .login-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   font-family: "Arial", sans-serif;
+  background: #0D1117;
 }
 
 /* Left Section */
 .left-section {
-  background: linear-gradient(to bottom right, #0d0d0d, #1a1a1a);
+  background: #0D1117;
   padding: 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   border-radius: 20px 0 0 20px;
 }
 
+.brand-logo {
+  color: #4CAF50;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
 .brand-title {
-  color: #10b981;
+  color: #4CAF50;
   font-weight: bold;
   margin-bottom: 2rem;
 }
@@ -26,11 +47,13 @@
   color: white;
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .instruction-text {
   color: #bbbbbb;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .form-fields {
@@ -50,7 +73,9 @@
 }
 
 .input-field {
-  background: white;
+  background: #1a1f29;
+  border: 1px solid #30363d;
+  color: white;
   border-radius: 0.5rem;
 }
 
@@ -65,7 +90,7 @@
 }
 
 .signin-button {
-  background: #10b981;
+  background: #4CAF50;
   color: white;
   padding: 0.75rem;
   border-radius: 0.5rem;
@@ -74,7 +99,7 @@
 }
 
 .signin-button:hover {
-  background: #059669;
+  background: #388E3C;
 }
 
 .social-buttons {
@@ -85,10 +110,11 @@
 }
 
 .icon-button {
-  background: white;
+  background: #1a1f29;
   padding: 0.5rem;
   border-radius: 50%;
   transition: transform 0.3s;
+  border: 1px solid #30363d;
 }
 
 .icon-button:hover {
@@ -102,7 +128,7 @@
 
 /* Right Section */
 .right-section {
-  background: #10b981;
+  background: #4CAF50;
   color: white;
   padding: 4rem;
   display: flex;

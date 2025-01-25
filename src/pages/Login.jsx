@@ -177,56 +177,51 @@ const LoginPage = () => {
 
       {/* Right Section */}
       <div className="right-section">
-        <div className="money-symbols">
-            <span>💰</span>
-            <span>💎</span>
-            <span>📈</span>
-        </div>
         <div className="testimonial">
-            <h2>Gestión Inteligente de Fondos</h2>
-            <blockquote>
-                "Optimiza la gestión de tus fondos de inversión con herramientas 
-                avanzadas de simulación financiera y administración de créditos."
-            </blockquote>
-            
-            <div className="testimonial-author">
-                <h3>Sistema Cooperativo</h3>
-                <p>Plataforma de Gestión Financiera</p>
-            </div>
+          <h2>Gestión Inteligente de Fondos</h2>
+          <blockquote>
+            "Optimiza la gestión de tus fondos de inversión con herramientas 
+            avanzadas de simulación financiera y administración de créditos."
+          </blockquote>
+          
+          <div className="testimonial-author">
+            <h3>Sistema Cooperativo</h3>
+            <p>Plataforma de Gestión Financiera</p>
+          </div>
 
-            <div className="nav-buttons">
-                <div className="info-card" onClick={handlePrevSlide}>
-                    <ArrowBackIcon className="nav-icon" />
-                    <div className="info-content">
-                        <h4>Anterior</h4>
-                        <p>Ver característica previa</p>
-                    </div>
-                </div>
-                <div className="info-card" onClick={handleNextSlide}>
-                    <ArrowForwardIcon className="nav-icon" />
-                    <div className="info-content">
-                        <h4>Siguiente</h4>
-                        <p>Ver más características</p>
-                    </div>
-                </div>
+          <div className="nav-buttons">
+            <div className="info-card" onClick={handlePrevSlide}>
+              <ArrowBackIcon className="nav-icon" />
+              <div className="info-content">
+                <h4>Anterior</h4>
+                <p>Ver característica previa</p>
+              </div>
             </div>
+            <div className="info-card" onClick={handleNextSlide}>
+              <ArrowForwardIcon className="nav-icon" />
+              <div className="info-content">
+                <h4>Siguiente</h4>
+                <p>Ver más características</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="feature-card">
-            <div className="feature-header">
-                <h3>{features[currentSlide].title}</h3>
-                {features[currentSlide].icon}
-            </div>
-            <p>{features[currentSlide].description}</p>
-            <div className="slide-indicators">
-                {features.map((_, index) => (
-                    <span 
-                        key={index} 
-                        className={`indicator ${index === currentSlide ? 'active' : ''}`}
-                        onClick={() => setCurrentSlide(index)}
-                    />
-                ))}
-            </div>
+          <div className="feature-header">
+            <h3>{features[currentSlide].title}</h3>
+            {features[currentSlide].icon}
+          </div>
+          <p>{features[currentSlide].description}</p>
+          <div className="slide-indicators">
+            {features.map((_, index) => (
+              <span 
+                key={index} 
+                className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
