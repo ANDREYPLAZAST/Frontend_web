@@ -232,8 +232,14 @@ export const uploadProfileImage = async (formData) => {
       }
     });
 
+    // Actualizar el userData en localStorage con la nueva imagen
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    userData.profileImage = response.data.imageUrl;
+    localStorage.setItem('userData', JSON.stringify(userData));
+
     return response.data;
   } catch (error) {
+    console.error('Error al subir imagen:', error);
     throw new Error(error.response?.data?.message || 'Error al subir la imagen');
   }
 };

@@ -119,4 +119,18 @@
 
 .settings-item:hover {
   background-color: rgba(255,255,255,0.1);
+}
+
+.logout-item {
+  margin-top: 1rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ff4d4d !important;
+}
+
+.logout-item .menu-icon {
+  color: #ff4d4d !important;
+}
+
+.logout-item:hover {
+  background-color: rgba(255, 77, 77, 0.1) !important;
 } 

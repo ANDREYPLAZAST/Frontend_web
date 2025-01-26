@@ -18,8 +18,13 @@ export const AuthProvider = ({ children }) => {
       if (isUserAuth) {
         const userData = JSON.parse(localStorage.getItem('userData'));
         console.log('Datos recuperados:', userData); // Para debug
-        setUser(userData);
-        setIsAuth(true);
+        if (userData) {
+          setUser({
+            ...userData,
+            profileImage: userData.profileImage // Asegurarnos que recuperamos la imagen
+          });
+          setIsAuth(true);
+        }
       }
     } catch (error) {
       console.error('Error validando autenticación:', error);
@@ -33,7 +38,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (data) => {
     try {
       localStorage.setItem('userToken', data.token);
-      localStorage.setItem('userData', JSON.stringify(data.user));
+      localStorage.setItem('userData', JSON.stringify({
+        ...data.user,
+        profileImage: data.user.profileImage // Asegurarnos que esto se guarda
+      }));
       setUser(data.user);
       setIsAuth(true);
       return true;

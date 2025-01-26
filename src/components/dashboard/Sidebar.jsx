@@ -8,13 +8,14 @@ import {
   Inventory as ProductIcon,
   School as LearningIcon,
   Settings as SettingsIcon,
-  Help as SupportIcon
+  Help as SupportIcon,
+  ExitToApp as LogoutIcon
 } from '@mui/icons-material';
 import '../../css/dashboard/Sidebar.css';
 import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,11 +56,17 @@ const Sidebar = () => {
     navigate(path);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <Box className="sidebar">
       {/* Perfil de Usuario */}
       <Box className="profile-info">
         <Avatar 
+          key={user?.profileImage}
           className="profile-avatar"
           src={user?.profileImage || '/default-avatar.jpg'}
           alt={`${user?.nombre} ${user?.apellido}`}
@@ -110,7 +117,6 @@ const Sidebar = () => {
           </ListItemIcon>
           <ListItemText 
             primary="Soporte"
-            secondary="¿Necesitas ayuda?"
             className="menu-text"
           />
         </ListItem>
@@ -124,6 +130,20 @@ const Sidebar = () => {
           </ListItemIcon>
           <ListItemText 
             primary="Configuración"
+            className="menu-text"
+          />
+        </ListItem>
+
+        {/* Botón de Cerrar Sesión */}
+        <ListItem 
+          className="menu-item logout-item"
+          onClick={handleLogout}
+        >
+          <ListItemIcon className="menu-icon">
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText 
+            primary="Cerrar Sesión"
             className="menu-text"
           />
         </ListItem>

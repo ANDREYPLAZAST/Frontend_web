@@ -76,7 +76,20 @@ const Settings = () => {
     try {
       const formData = new FormData();
       formData.append('profileImage', file);
-      await uploadProfileImage(formData);
+      const response = await uploadProfileImage(formData);
+      
+      // Actualizar el contexto con la nueva imagen
+      updateUserData({
+        ...user,
+        profileImage: response.imageUrl
+      });
+
+      // Forzar la actualización del avatar
+      const avatarElement = document.querySelector('.profile-avatar');
+      if (avatarElement) {
+        avatarElement.src = response.imageUrl + '?t=' + new Date().getTime();
+      }
+      
       setSuccessMessage('Imagen de perfil actualizada exitosamente');
       setOpenSnackbar(true);
     } catch (error) {
