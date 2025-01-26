@@ -12,6 +12,7 @@ import Products from './pages/Products';
 import Learning from './pages/Learning';
 import Support from './pages/Support';
 import Settings from './pages/Settings';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -23,8 +24,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Rutas del dashboard y sus subrutas */}
-        <Route path="/dashboard" element={<Dashboard />}>
+        {/* Rutas protegidas */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<Dashboard />} />
           <Route path="portfolio" element={<Portfolio />} />

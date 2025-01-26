@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser, verifyOTP } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 // Importaciones de MUI
 import { 
   Google as GoogleIcon,
@@ -15,6 +16,7 @@ import {
 import "../css/Login.css";
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [otpCode, setOtpCode] = useState("");
@@ -53,37 +55,34 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
 
     try {
       const response = await loginUser(email, password);
+      
       if (response.requiresOTP) {
         setShowOtpInput(true);
         setError("Se ha enviado un código a tu correo");
       } else {
+        await login(response);
         navigate('/dashboard');
       }
     } catch (err) {
       setError(err.message || 'Error al iniciar sesión');
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     setError("");
-    setIsLoading(true);
 
     try {
       const response = await verifyOTP(email, otpCode);
       if (response.token) {
+        await login(response);
         navigate('/dashboard');
       }
     } catch (err) {
       setError(err.message || 'Error al verificar el código');
-    } finally {
-      setIsLoading(false);
     }
   };
 

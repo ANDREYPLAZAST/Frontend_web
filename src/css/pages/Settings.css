@@ -12,4 +12,47 @@
   .settings-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.profile-image-section .MuiAvatar-root {
+  width: 120px !important;
+  height: 120px !important;
+  border: 3px solid #4CAF50;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-image-section .MuiAvatar-root:hover {
+  transform: scale(1.05);
+}
+
+.upload-button {
+  background-color: #4CAF50 !important;
+  color: white !important;
+  padding: 8px 24px !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+}
+
+.upload-button:hover {
+  background-color: #45a049 !important;
+}
+
+.settings-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 } 

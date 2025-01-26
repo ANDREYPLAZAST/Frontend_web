@@ -11,8 +11,10 @@ import {
   Help as SupportIcon
 } from '@mui/icons-material';
 import '../../css/dashboard/Sidebar.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,14 +61,15 @@ const Sidebar = () => {
       <Box className="profile-info">
         <Avatar 
           className="profile-avatar"
-          src="/path-to-profile-image.jpg"
+          src={user?.profileImage || '/default-avatar.jpg'}
+          alt={`${user?.nombre} ${user?.apellido}`}
         />
         <Box className="profile-details">
           <Typography className="profile-name">
-            Jenifer Smith
+            {user?.nombre} {user?.apellido}
           </Typography>
           <Typography className="profile-email">
-            jenifer.smith@gmail.com
+            {user?.email}
           </Typography>
         </Box>
       </Box>

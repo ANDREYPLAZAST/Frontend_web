@@ -2,10 +2,10 @@
 
 import axios from 'axios';
 
-// URL base para las peticiones al backend
-const API_URL = 'http://localhost:5000/api'; // Verifica que este puerto coincida con tu backend
+// Mantener la URL base aquí
+const API_URL = 'http://localhost:5000/api';
 
-// Función para hacer login
+// Login con 2FA
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL}/auth/login`, {
@@ -18,16 +18,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const logout = () => {
-  localStorage.removeItem('userToken');
-  localStorage.removeItem('userData');
-};
-
-export const isAuthenticated = () => {
-  return !!localStorage.getItem('userToken');
-};
-
-// Función para verificar el OTP
+// Verificar OTP
 export const verifyOTP = async (email, otp) => {
   try {
     const response = await axios.post(`${API_URL}/auth/verify-otp`, {
@@ -44,6 +35,72 @@ export const verifyOTP = async (email, otp) => {
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error al verificar el código');
   }
+};
+
+// Actualizar perfil
+export const updateUserProfile = async (profileData) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios({
+      method: 'PUT',
+      url: `${API_URL}/users/profile`,
+      data: profileData,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return {
+      success: true,
+      data: response.data
+    };
+  } catch (error) {
+    console.error('Error actualizando perfil:', error);
+    throw new Error(error.response?.data?.message || 'Error actualizando perfil');
+  }
+};
+
+// Cambiar contraseña
+export const updatePassword = async (passwordData) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios({
+      method: 'PUT',
+      url: `${API_URL}/users/change-password`,
+      data: {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
+      },
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error al cambiar la contraseña');
+  }
+};
+
+// Verificar autenticación
+export const isAuthenticated = () => {
+  return !!localStorage.getItem('userToken');
+};
+
+// Cerrar sesión
+export const logout = () => {
+  localStorage.removeItem('userToken');
+  localStorage.removeItem('userData');
 };
 
 // Función para registrar un nuevo usuario
@@ -112,5 +169,71 @@ export const resetPassword = async (newPassword) => {
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Error al restablecer la contraseña');
+  }
+};
+
+// Función helper para obtener headers con autorización
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('userToken');
+  return {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+};
+
+// Función helper para manejar errores de API
+const handleApiError = (error) => {
+  if (error.response) {
+    switch (error.response.status) {
+      case 400:
+        throw new Error('Datos inválidos');
+      case 401:
+        throw new Error('No autorizado');
+      case 403:
+        throw new Error('Token inválido o expirado');
+      case 404:
+        throw new Error('Recurso no encontrado');
+      case 500:
+        throw new Error('Error del servidor');
+      default:
+        throw new Error(error.response.data.message || 'Error en la operación');
+    }
+  }
+  throw new Error('Error de conexión');
+};
+
+// Usar estas funciones helper en todas las llamadas autenticadas
+export const someAuthenticatedCall = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/some-endpoint`, data, {
+      headers: getAuthHeaders()
+    });
+    return response.data;
+  } catch (error) {
+    throw handleApiError(error);
+  }
+};
+
+// Función para subir imagen de perfil
+export const uploadProfileImage = async (formData) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios({
+      method: 'POST',
+      url: `${API_URL}/users/profile-image`,
+      data: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error al subir la imagen');
   }
 };
