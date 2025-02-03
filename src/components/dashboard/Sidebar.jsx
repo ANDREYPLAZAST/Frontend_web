@@ -9,7 +9,8 @@ import {
   School as LearningIcon,
   Settings as SettingsIcon,
   Help as SupportIcon,
-  ExitToApp as LogoutIcon
+  ExitToApp as LogoutIcon,
+  MonetizationOn as FundsIcon
 } from '@mui/icons-material';
 import '../../css/dashboard/Sidebar.css';
 import { useAuth } from '../../context/AuthContext';
@@ -25,6 +26,12 @@ const Sidebar = () => {
       label: 'Dashboard', 
       path: '/dashboard/home',
       description: 'Resumen general de tu cuenta'
+    },
+    {
+      icon: <FundsIcon />,
+      label: 'Fondos',
+      path: '/dashboard/funds',
+      description: 'Consulta de fondos y acciones'
     },
     { 
       icon: <TransactionIcon />, 
@@ -82,7 +89,10 @@ const Sidebar = () => {
       </Box>
 
       {/* Menú Principal */}
-      <Typography variant="body2" className="menu-label">Menú Principal</Typography>
+      <Typography variant="body2" className="menu-label">
+        MENÚ PRINCIPAL
+      </Typography>
+      
       <List className="menu-list">
         {menuItems.map((item) => (
           <Tooltip 
@@ -133,10 +143,12 @@ const Sidebar = () => {
             className="menu-text"
           />
         </ListItem>
+      </Box>
 
-        {/* Botón de Cerrar Sesión */}
+      <Box className="logout-container">
         <ListItem 
-          className="menu-item logout-item"
+          button 
+          className="logout-item"
           onClick={handleLogout}
         >
           <ListItemIcon className="menu-icon">

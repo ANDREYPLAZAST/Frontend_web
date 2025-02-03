@@ -1,0 +1,16 @@
+.page-title {
+  margin-bottom: 2rem !important;
+  color: #333;
+}
+
+.funds-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 1.5rem !important;
+  }
+} 

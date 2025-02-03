@@ -8,6 +8,7 @@ import AccountSummary from '../components/dashboard/AccountSummary';
 import TransactionHistory from '../components/dashboard/TransactionHistory';
 import FinancialStats from '../components/dashboard/FinancialStats';
 import QuickActions from '../components/dashboard/QuickActions';
+import FinancialData from '../components/dashboard/FinancialData';
 import "../css/Dashboard.css";
 import "../css/dashboard/DashboardLayout.css";
 
@@ -72,6 +73,12 @@ const Dashboard = () => {
               <QuickActions />
             </Box>
           </Box>
+
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <FinancialData />
+            </Grid>
+          </Grid>
 
           <Outlet /> {/* Aquí se renderizarán las subrutas */}
         </Container>

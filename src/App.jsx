@@ -13,6 +13,7 @@ import Learning from './pages/Learning';
 import Support from './pages/Support';
 import Settings from './pages/Settings';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import Funds from './pages/Funds';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         }>
           <Route index element={<Navigate to="home" />} />
           <Route path="home" element={<Dashboard />} />
+          <Route path="funds" element={<Funds />} />
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="transactions" element={<Transactions />} />
           <Route path="products" element={<Products />} />

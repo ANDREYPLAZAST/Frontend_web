@@ -103,7 +103,7 @@ const LoginPage = () => {
                   <label>Email</label>
                   <input
                     type="email"
-                    placeholder="andrey_lindo@gmail.com"
+                    placeholder="correo@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -167,7 +167,7 @@ const LoginPage = () => {
                 }}
                 className="create-account-link"
               >
-                Create an account
+                Crear cuenta
               </a>
             </div>
           </form>
