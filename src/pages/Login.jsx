@@ -15,10 +15,12 @@ import {
 } from '@mui/icons-material';
 import "../css/Login.css";
 
-const LoginPage = () => {
-  const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginPage() {
+  const { login, verify2FA } = useAuth();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
   const [otpCode, setOtpCode] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [error, setError] = useState("");
@@ -55,34 +57,51 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
-      const response = await loginUser(email, password);
+      console.log('Intentando login con:', formData.email);
+      const response = await login(formData.email, formData.password);
       
-      if (response.requiresOTP) {
+      console.log('Respuesta login:', response);
+      
+      // Si requiere 2FA o el mensaje indica verificación
+      if (response.requires2FA || response.message?.includes('verifica')) {
         setShowOtpInput(true);
-        setError("Se ha enviado un código a tu correo");
-      } else {
-        await login(response);
-        navigate('/dashboard');
+        setError('Por favor, verifica el código enviado a tu email');
+        return;
       }
+
+      // Si no requiere 2FA, navegamos al dashboard
+      navigate('/dashboard/home');
     } catch (err) {
+      console.error('Error completo:', err);
       setError(err.message || 'Error al iniciar sesión');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
     try {
-      const response = await verifyOTP(email, otpCode);
+      console.log('Verificando OTP para:', formData.email);
+      const response = await verify2FA(formData.email, otpCode);
+      console.log('Respuesta verificación:', response);
+      
       if (response.token) {
-        await login(response);
-        navigate('/dashboard');
+        navigate('/dashboard/home');
+      } else {
+        setError('Código de verificación inválido');
       }
     } catch (err) {
+      console.error('Error en verificación:', err);
       setError(err.message || 'Error al verificar el código');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -96,33 +115,41 @@ const LoginPage = () => {
           <h2 className="welcome-text">Bienvenido de nuevo</h2>
           <p className="instruction-text">Ingresa tus credenciales para gestionar tus fondos</p>
           
-          <form onSubmit={showOtpInput ? handleVerifyOTP : handleSubmit}>
-            {!showOtpInput ? (
-              <>
-                <div className="form-group">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    placeholder="correo@gmail.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
+          {!showOtpInput ? (
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="correo@gmail.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                />
+              </div>
 
-                <div className="form-group">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <Link to="/forgot-password" className="forgot-password">Olvidé mi contraseña</Link>
-                </div>
-              </>
-            ) : (
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                />
+                <Link to="/forgot-password" className="forgot-password">Olvidé mi contraseña</Link>
+              </div>
+
+              <button 
+                type="submit" 
+                className="sign-in-btn"
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Iniciar sesión"}
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleVerifyOTP}>
               <div className="form-group">
                 <label>Código de verificación</label>
                 <input
@@ -131,46 +158,47 @@ const LoginPage = () => {
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value)}
                   maxLength={6}
+                  required
                 />
                 <p className="help-text">Revisa tu correo electrónico</p>
               </div>
-            )}
 
-            <button 
-              type="submit" 
-              className="sign-in-btn"
-              disabled={isLoading}
-            >
-              {isLoading ? "Loading..." : (showOtpInput ? "Verificar" : "Iniciar sesión")}
-            </button>
-
-            {error && <p className="error-message">{error}</p>}
-
-            <div className="social-login">
-              <button type="button" className="social-btn google">
-                <GoogleIcon className="social-icon" />
-              </button>
-              <button type="button" className="social-btn github">
-                <GitHubIcon className="social-icon" />
-              </button>
-              <button type="button" className="social-btn facebook">
-                <FacebookIcon className="social-icon" />
-              </button>
-            </div>
-
-            <div className="create-account">
-              <a 
-                href="#" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/register');
-                }}
-                className="create-account-link"
+              <button 
+                type="submit" 
+                className="sign-in-btn"
+                disabled={isLoading}
               >
-                Crear cuenta
-              </a>
-            </div>
-          </form>
+                {isLoading ? "Verificando..." : "Verificar Código"}
+              </button>
+            </form>
+          )}
+
+          {error && <div className="error-message">{error}</div>}
+
+          <div className="social-login">
+            <button type="button" className="social-btn google">
+              <GoogleIcon className="social-icon" />
+            </button>
+            <button type="button" className="social-btn github">
+              <GitHubIcon className="social-icon" />
+            </button>
+            <button type="button" className="social-btn facebook">
+              <FacebookIcon className="social-icon" />
+            </button>
+          </div>
+
+          <div className="create-account">
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/register');
+              }}
+              className="create-account-link"
+            >
+              Crear cuenta
+            </a>
+          </div>
         </div>
       </div>
 
@@ -225,6 +253,4 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}

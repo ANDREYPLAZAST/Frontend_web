@@ -55,4 +55,25 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.settings-section form {
+  margin-top: 2rem;
+}
+
+/* Estilo para campos deshabilitados */
+.MuiTextField-root.Mui-disabled {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.MuiTextField-root.Mui-disabled .MuiInputBase-input {
+  color: #666;
+}
+
+/* Centrar el botón de guardar */
+.save-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 } 

@@ -12,9 +12,22 @@ export const loginUser = async (email, password) => {
       email,
       password
     });
+    
+    console.log('Respuesta del servidor:', response.data); // Para debug
+    
+    // Si la respuesta indica que se requiere 2FA
+    if (response.data.requires2FA) {
+      return {
+        requires2FA: true,
+        email,
+        message: 'Se requiere verificación de dos factores'
+      };
+    }
+    
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || 'Error en el inicio de sesión');
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al iniciar sesión');
   }
 };
 
@@ -26,13 +39,10 @@ export const verifyOTP = async (email, otp) => {
       otp
     });
     
-    if (response.data.token) {
-      localStorage.setItem('userToken', response.data.token);
-      localStorage.setItem('userData', JSON.stringify(response.data.user));
-    }
-    
+    console.log('Respuesta verificación OTP:', response.data); // Para debug
     return response.data;
   } catch (error) {
+    console.error('Error en verificación OTP:', error);
     throw new Error(error.response?.data?.message || 'Error al verificar el código');
   }
 };
@@ -45,23 +55,33 @@ export const updateUserProfile = async (profileData) => {
       throw new Error('No hay token de autenticación');
     }
 
-    const response = await axios({
-      method: 'PUT',
-      url: `${API_URL}/users/profile`,
-      data: profileData,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    });
+    // Obtenemos el ID del usuario directamente de profileData
+    const userId = profileData.id;
+    if (!userId) {
+      throw new Error('ID de usuario no encontrado');
+    }
 
-    return {
-      success: true,
-      data: response.data
-    };
+    // Eliminamos el id de los datos a enviar ya que va en la URL
+    const { id, ...dataToSend } = profileData;
+
+    const response = await axios.put(
+      `${API_URL}/users/profile/${userId}`,
+      dataToSend,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    return response.data;
   } catch (error) {
-    console.error('Error actualizando perfil:', error);
-    throw new Error(error.response?.data?.message || 'Error actualizando perfil');
+    if (error.response?.status === 403) {
+      throw new Error('No tienes permiso para actualizar este perfil');
+    }
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al actualizar el perfil');
   }
 };
 
@@ -93,8 +113,25 @@ export const updatePassword = async (passwordData) => {
 };
 
 // Verificar autenticación
-export const isAuthenticated = () => {
-  return !!localStorage.getItem('userToken');
+export const isAuthenticated = async () => {
+  const token = localStorage.getItem('userToken');
+  if (!token) return false;
+
+  try {
+    // Verificar el token y obtener los datos completos del usuario
+    const response = await axios.get(`${API_URL}/users/profile`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    // Actualizar los datos del usuario en localStorage
+    localStorage.setItem('userData', JSON.stringify(response.data.user));
+    return true;
+  } catch (error) {
+    console.error('Error al verificar autenticación:', error);
+    return false;
+  }
 };
 
 // Cerrar sesión
@@ -241,5 +278,54 @@ export const uploadProfileImage = async (formData) => {
   } catch (error) {
     console.error('Error al subir imagen:', error);
     throw new Error(error.response?.data?.message || 'Error al subir la imagen');
+  }
+};
+
+// Función para obtener todas las transacciones
+export const getTransactions = async () => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios.get(`${API_URL}/transactions`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al obtener las transacciones');
+  }
+};
+
+// Función para crear una nueva transacción
+export const createTransaction = async (transactionData) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios.post(`${API_URL}/transactions`, 
+      {
+        ...transactionData,
+        fecha: transactionData.fecha.toISOString(), // Formatear la fecha
+        estado: 'completada'
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al crear la transacción');
   }
 };

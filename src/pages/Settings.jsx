@@ -41,17 +41,17 @@ const Settings = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      console.log('Datos del usuario:', user); // Para debug
+    console.log('Usuario completo:', user);
+    if (user?.user) {
       setProfileData({
-        nombre: user.nombre || '',
-        apellido: user.apellido || '',
-        email: user.email || '',
-        tipoDocumento: user.tipoDocumento || '',
-        numeroCedula: user.numeroCedula || '',
-        ciudad: user.ciudad || '',
-        codigoPais: user.codigoPais || '',
-        numeroTelefonico: user.numeroTelefonico || ''
+        nombre: user.user.nombre || '',
+        apellido: user.user.apellido || '',
+        email: user.user.email || '',
+        tipoDocumento: user.user.tipoDocumento || '',
+        numeroCedula: user.user.numeroCedula || '',
+        ciudad: user.user.ciudad || '',
+        codigoPais: user.user.codigoPais || '',
+        numeroTelefonico: user.user.numeroTelefonico || ''
       });
     }
   }, [user]);
@@ -81,7 +81,10 @@ const Settings = () => {
       // Actualizar el contexto con la nueva imagen
       updateUserData({
         ...user,
-        profileImage: response.imageUrl
+        user: {
+          ...user.user,
+          profileImage: response.imageUrl
+        }
       });
 
       // Forzar la actualización del avatar
@@ -102,14 +105,29 @@ const Settings = () => {
     e.preventDefault();
     setError('');
     try {
-      const response = await updateUserProfile(profileData);
-      if (response.success) {
+      if (!user?.user?.id) {
+        setError('Error: ID de usuario no encontrado');
+        setOpenSnackbar(true);
+        return;
+      }
+
+      const dataToUpdate = {
+        ...profileData,
+        id: user.user.id
+      };
+
+      const response = await updateUserProfile(dataToUpdate);
+      if (response.message === 'Perfil actualizado correctamente') {
         setSuccessMessage('Cambios guardados exitosamente');
-        // Actualizar el contexto con los nuevos datos
+        
+        // Actualizamos el estado global con los datos actualizados
         updateUserData({
           ...user,
-          ...profileData
+          user: response.user // Usamos directamente el usuario actualizado que viene del backend
         });
+
+        // Forzar actualización del sidebar y otros componentes
+        window.dispatchEvent(new Event('userUpdated'));
       } else {
         setError('No se pudieron guardar los cambios');
       }
@@ -162,7 +180,7 @@ const Settings = () => {
             <Grid item xs={12}>
               <Box className="settings-section profile-image-section">
                 <Avatar
-                  src={user?.profileImage || '/default-avatar.jpg'}
+                  src={user?.user?.profileImage || '/default-avatar.jpg'}
                   sx={{ width: 120, height: 120 }}
                 />
                 <Button
@@ -211,7 +229,7 @@ const Settings = () => {
                     <Grid item xs={12}>
                       <TextField
                         fullWidth
-                        label="Correo Electrónico"
+                        label="Email"
                         name="email"
                         value={profileData.email}
                         disabled
@@ -262,16 +280,16 @@ const Settings = () => {
                         onChange={handleChange}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                       <Button
                         type="submit"
                         variant="contained"
-                        fullWidth
                         sx={{
                           backgroundColor: '#4CAF50',
                           '&:hover': {
                             backgroundColor: '#45a049'
-                          }
+                          },
+                          width: '200px' // Ancho fijo para el botón
                         }}
                       >
                         GUARDAR CAMBIOS

@@ -3,6 +3,7 @@ import { Box, Container, Typography, Grid, Tab, Tabs, Button } from '@mui/materi
 import Sidebar from '../components/dashboard/Sidebar';
 import ProductCard from '../components/products/ProductCard';
 import ProductSimulator from '../components/products/ProductSimulator';
+import SubscriptionManager from '../components/products/SubscriptionManager';
 import '../css/pages/Products.css';
 
 const Products = () => {
@@ -86,6 +87,10 @@ const Products = () => {
               </Button>
             </Grid>
           </Grid>
+
+          <Box sx={{ py: 4 }}>
+            <SubscriptionManager />
+          </Box>
         </Container>
       </Box>
     </Box>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Box, List, ListItem, ListItemIcon, ListItemText, Avatar, Typography, Tooltip } from '@mui/material';
 import {
@@ -16,9 +16,10 @@ import '../../css/dashboard/Sidebar.css';
 import { useAuth } from '../../context/AuthContext';
 
 const Sidebar = () => {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout } = useAuth();
+  const [, forceUpdate] = useState({});
 
   const menuItems = [
     { 
@@ -68,31 +69,36 @@ const Sidebar = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    const handleUserUpdate = () => {
+      // Forzar re-render del sidebar
+      forceUpdate({});
+    };
+
+    window.addEventListener('userUpdated', handleUserUpdate);
+    return () => window.removeEventListener('userUpdated', handleUserUpdate);
+  }, []);
+
   return (
     <Box className="sidebar">
-      {/* Perfil de Usuario */}
-      <Box className="profile-info">
+      {/* Perfil del usuario */}
+      <Box className="user-profile">
         <Avatar 
-          key={user?.profileImage}
+          src={user?.user?.profileImage || '/default-avatar.jpg'}
           className="profile-avatar"
-          src={user?.profileImage || '/default-avatar.jpg'}
-          alt={`${user?.nombre} ${user?.apellido}`}
         />
-        <Box className="profile-details">
-          <Typography className="profile-name">
-            {user?.nombre} {user?.apellido}
-          </Typography>
-          <Typography className="profile-email">
-            {user?.email}
-          </Typography>
-        </Box>
+        <Typography variant="h6" className="user-name">
+          {user?.user?.nombre || ''} {user?.user?.apellido || ''}
+        </Typography>
+        <Typography variant="body2" className="user-email">
+          {user?.user?.email || ''}
+        </Typography>
       </Box>
 
-      {/* Menú Principal */}
-      <Typography variant="body2" className="menu-label">
+      <Typography className="menu-title">
         MENÚ PRINCIPAL
       </Typography>
-      
+
       <List className="menu-list">
         {menuItems.map((item) => (
           <Tooltip 
