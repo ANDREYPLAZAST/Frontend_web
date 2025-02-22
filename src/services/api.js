@@ -295,7 +295,12 @@ export const getTransactions = async () => {
         'Content-Type': 'application/json'
       }
     });
-    return response;
+
+    // Asegurarnos que la respuesta incluya el balance actualizado
+    return {
+      data: response.data.transactions,
+      balanceActual: response.data.balanceActual
+    };
   } catch (error) {
     console.error('Error completo:', error);
     throw new Error(error.response?.data?.message || 'Error al obtener las transacciones');
@@ -327,5 +332,53 @@ export const createTransaction = async (transactionData) => {
   } catch (error) {
     console.error('Error completo:', error);
     throw new Error(error.response?.data?.message || 'Error al crear la transacción');
+  }
+};
+
+// Función para obtener el crédito disponible
+export const getAvailableCredit = async () => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios.get(`${API_URL}/credito-disponible`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al obtener el crédito disponible');
+  }
+};
+
+// Función para actualizar la meta de ahorro
+export const updateSavingsGoal = async (metaAhorro) => {
+  try {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      throw new Error('No hay token de autenticación');
+    }
+
+    const response = await axios.put(
+      `${API_URL}/meta-ahorro`,
+      { metaAhorro },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    return response.data;
+  } catch (error) {
+    console.error('Error completo:', error);
+    throw new Error(error.response?.data?.message || 'Error al actualizar la meta de ahorro');
   }
 };

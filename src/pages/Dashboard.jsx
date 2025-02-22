@@ -11,8 +11,11 @@ import QuickActions from '../components/dashboard/QuickActions';
 import FinancialData from '../components/dashboard/FinancialData';
 import "../css/Dashboard.css";
 import "../css/dashboard/DashboardLayout.css";
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const { user } = useAuth();
+
   React.useEffect(() => {
     // Agregar clase al body cuando el componente se monta
     document.body.classList.add('dashboard-page');
@@ -49,8 +52,8 @@ const Dashboard = () => {
           <Grid container spacing={3} className="summary-section">
             <Grid item xs={12}>
               <AccountSummary 
-                balance="$9,050.00"
-                savingsGoal="$10,000.00"
+                balance={user?.user?.balance || 0}
+                savingsGoal={user?.user?.metaAhorro || 0}
                 creditLimit="$15,000.00"
                 nextPayment={{
                   amount: "$350.12",

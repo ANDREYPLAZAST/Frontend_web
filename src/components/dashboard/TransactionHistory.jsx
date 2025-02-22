@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Card, 
   Box, 
@@ -9,43 +9,34 @@ import {
   TableContainer, 
   TableHead, 
   TableRow,
-  Chip
+  Chip 
 } from '@mui/material';
+import { getTransactions } from '../../services/api';
 import '../../css/dashboard/TransactionHistory.css';
 
 const TransactionHistory = () => {
-  const transactions = [
-    {
-      id: 1,
-      type: 'deposit',
-      description: 'Depósito de Ahorro',
-      amount: '+$1,200.00',
-      date: '15 Mar 2024',
-      status: 'completed'
-    },
-    {
-      id: 2,
-      type: 'payment',
-      description: 'Pago de Préstamo',
-      amount: '-$350.12',
-      date: '14 Mar 2024',
-      status: 'completed'
-    },
-    {
-      id: 3,
-      type: 'transfer',
-      description: 'Transferencia recibida',
-      amount: '+$500.00',
-      date: '13 Mar 2024',
-      status: 'completed'
-    }
-  ];
+  const [recentTransactions, setRecentTransactions] = useState([]);
+
+  useEffect(() => {
+    const loadRecentTransactions = async () => {
+      try {
+        const response = await getTransactions();
+        // Tomar solo las últimas 3 transacciones
+        const lastThree = response.data.slice(0, 3);
+        setRecentTransactions(lastThree);
+      } catch (error) {
+        console.error('Error cargando transacciones recientes:', error);
+      }
+    };
+
+    loadRecentTransactions();
+  }, []);
 
   return (
-    <Card className="transactions-card">
-      <Box className="transactions-header">
-        <Typography variant="h6">Movimientos Recientes</Typography>
-      </Box>
+    <Card className="transaction-history-card">
+      <Typography variant="h6" className="section-title">
+        Movimientos Recientes
+      </Typography>
       
       <TableContainer>
         <Table>
@@ -58,17 +49,23 @@ const TransactionHistory = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>{transaction.description}</TableCell>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell align="right" className={transaction.amount.startsWith('+') ? 'amount-positive' : 'amount-negative'}>
-                  {transaction.amount}
+            {recentTransactions.map((transaction) => (
+              <TableRow key={transaction._id || transaction.id}>
+                <TableCell>{transaction.descripcion}</TableCell>
+                <TableCell>
+                  {new Date(transaction.fecha).toLocaleDateString()}
+                </TableCell>
+                <TableCell 
+                  align="right"
+                  className={transaction.tipo === 'ingreso' ? 'amount-positive' : 'amount-negative'}
+                >
+                  {transaction.tipo === 'ingreso' ? '+' : '-'}
+                  ${Math.abs(transaction.monto).toFixed(2)}
                 </TableCell>
                 <TableCell align="center">
                   <Chip 
-                    label={transaction.status} 
-                    className={`status-chip ${transaction.status}`}
+                    label={transaction.estado}
+                    className={`status-chip ${transaction.estado}`}
                   />
                 </TableCell>
               </TableRow>

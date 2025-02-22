@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { getTransactions } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 import CreateTransaction from './CreateTransaction';
 import '../../css/transactions/TransactionList.css';
 
@@ -20,22 +21,26 @@ const TransactionList = ({ tabValue, searchQuery, dateRange }) => {
   const [openCreate, setOpenCreate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { user, updateUserData } = useAuth();
 
   const loadTransactions = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('userToken');
-      console.log('Token actual:', token); // Para depuración
-      
-      if (!token) {
-        throw new Error('No hay token disponible');
-      }
-      
       const response = await getTransactions();
-      console.log('Respuesta de transacciones:', response);
       setTransactions(response.data);
+      
+      // Actualizar el balance del usuario cuando obtenemos las transacciones
+      if (response.balanceActual !== undefined) {
+        updateUserData({
+          ...user,
+          user: {
+            ...user.user,
+            balance: response.balanceActual
+          }
+        });
+      }
     } catch (err) {
-      console.error('Error completo en transacciones:', err);
+      console.error('Error:', err);
       setError(err.message || 'Error al cargar las transacciones');
     } finally {
       setLoading(false);
@@ -46,8 +51,8 @@ const TransactionList = ({ tabValue, searchQuery, dateRange }) => {
     loadTransactions();
   }, []);
 
-  const handleTransactionCreated = (newTransaction) => {
-    setTransactions([newTransaction, ...transactions]);
+  const handleTransactionCreated = async () => {
+    await loadTransactions(); // Recargar transacciones y balance
   };
 
   const filteredTransactions = transactions.filter(transaction => {
@@ -89,7 +94,7 @@ const TransactionList = ({ tabValue, searchQuery, dateRange }) => {
           </TableHead>
           <TableBody>
             {filteredTransactions.map((transaction) => (
-              <TableRow key={transaction._id}>
+              <TableRow key={transaction._id || transaction.id}>
                 <TableCell>{transaction.descripcion}</TableCell>
                 <TableCell>{transaction.categoria}</TableCell>
                 <TableCell>
